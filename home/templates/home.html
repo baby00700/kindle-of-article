@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>欢迎Home</title>
+</head>
+<body>
+<div class="tit">欢迎 {{ tips }}</div>
+<div class="blocks">
+    <div class="cont">
+        <div style="margin-top: 20px;">列表:</div>
+        <ul>
+        {%  for i in List %}
+            <li>第{{ i }}项</li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<div class="blocks">
+    <div class="cont">
+        <div style="text-align: center">{{ info_dict.site }}</div>
+    </div>
+</div>
+</body>
+<style>
+    body{
+        background-color: #eee;
+    }
+    .tit{
+        margin-left: 3%;
+        font-weight:500;
+        margin-top: 20px;
+        font-size: 20px;
+    }
+    .blocks{
+        border-radius: 5px;
+        background-color: #fff;
+        width:94%;
+        margin-left:3%;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.2);
+        transition: all 0.4s;
+    }
+    .blocks:hover{
+        box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.5);
+        cursor: pointer;
+    }
+    .cont{
+        margin-top: 10px;
+        margin-bottom: 10px;
+        width:94%;
+        margin-left:3%;
+    }
+</style>
+</html>

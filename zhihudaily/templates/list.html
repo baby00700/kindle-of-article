@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>列表页-阅读-日报</title>
+</head>
+<body>
+<div class="datas" style="display: none">
+    {{ info_dict }}
+</div>
+
+<a href="/juejin/" style="font-size: 40px;margin-left:20px;background: #000;color:#FFF"> =>掘金<= </a>
+<a href="/newslist/" style="font-size: 40px;background: #000;margin-left:20px;color:#FFF"> =>知乎日报<= </a>
+<a href="/article/" style="font-size: 40px;background: #000;margin-left:20px;color:#FFF"> =>随机一文<= </a>
+<div id="app">
+
+</div>
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$(document).ready(function () {
+    console.log(JSON.parse($('.datas').html().replace(/\'/g,'\"')))
+    var data = JSON.parse($('.datas').html().replace(/\'/g,'\"'))
+    var stories = data.stories
+    console.log(stories)
+    var storiesHtml = ''
+    for (var i = 0; i < stories.length; i ++) {
+        storiesHtml += '<div class="list"><a href="/zhihusrc/?id='+ stories[i].id +'">'+ (i+1) + '.' + stories[i].title +'</a></div>'
+    }
+    $('#app').html(storiesHtml)
+})
+</script>
+<style>
+ a:active{
+        color:#fff;
+    }
+    a:visited{
+        color:#000;
+    }
+    #app{
+    	padding:60px;
+        width:100%;
+        height:50px;
+        text-align: left;
+        font-size:50px;
+        line-height: 70px;
+        font-family:'serif';
+    }
+    .list{
+    		margin-top:30px;
+    		
+    	}
+    	.list:hover{
+    		background-color:#000;
+    		color:#fff;	
+    	}
+</style>
+</html>

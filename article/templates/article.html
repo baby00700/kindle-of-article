@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ info_dict.data.title }}</title>
+</head>
+<body>
+<a href="/juejin/" style="font-size: 40px;margin-left:20px;background: #000;color:#FFF"> =>掘金<= </a>
+<a href="/newslist/" style="font-size: 40px;background: #000;margin-left:20px;color:#FFF"> =>知乎日报<= </a>
+<a href="/article/" style="font-size: 40px;background: #000;margin-left:20px;color:#FFF"> =>随机一文<= </a>
+<div id="app">
+    <h1 class="title">
+    {{ info_dict.data.title }}
+    </h1>
+    <h3 class="author">
+        {{ info_dict.data.author }}
+    </h3>
+    <h4 class="digest">
+        {{ info_dict.data.digest }} ......
+    </h4>
+
+    <div class="content" v-html="html">
+    </div>
+
+<a href="/juejin/" style="font-size: 40px;margin-left:20px;background: #000;color:#FFF"> =>掘金<= </a>
+<a href="/newslist/" style="font-size: 40px;background: #000;margin-left:20px;color:#FFF"> =>知乎日报<= </a>
+<a href="/article/" style="font-size: 40px;background: #000;margin-left:20px;color:#FFF"> =>随机一文<= </a>
+
+</div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$(document).ready(function () {
+     var x = {
+        a : '{{ info_dict.data.content }}'
+     }
+ 	x.a = x.a.replace(/&lt;/g,'\<')
+	x.a = x.a.replace(/&gt;/g,'\>')
+     var dheight = 2000
+     var y = 0
+     $(".content").html(x.a)
+    
+	$(".top").touch(function () {
+		y = y - dheight
+		window.scrollTo(0,y)
+	})
+	$(".bottom").touch(function () {
+		y = y +dheight
+		window.scrollTo(0,y)
+	})
+
+})
+</script>
+<style>
+    #app{
+        padding:60px;
+        font-family:'serif'
+    }
+    .title{
+        font-size: 60px;
+    }
+
+    .author{
+        font-size: 40px;
+    }
+
+    .digest{
+        font-size: 40px;
+    }
+    .content{
+        font-size: 50px;
+        line-height:70px;
+    }
+    .opeator{
+        width:100%;
+        height:100%;
+        background-color: rgba(255,0,0,0.0);
+        position: fixed;
+        top:0px;
+        left:0px;
+    }
+    .top{
+        width:100%;
+        height:50%;
+        background-color:rgba(0,255,0,0.0);
+    }
+    .top:active{
+    		background-color:rgba(0,255,0,0.5);
+    	}
+    .bottom{
+        width:100%;
+        height:50%;
+        background-color:rgba(0,0,255,0.0);
+    }
+    .bottom:active{
+    		background-color:rgba(0,255,0,0.5);
+    	}
+</style>
+</html>

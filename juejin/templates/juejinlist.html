@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ol>
+<a href="/juejin/" style="font-size: 40px;margin-left:20px;background: #000;color:#FFF"> =>掘金<= </a>
+<a href="/newslist/" style="font-size: 40px;background: #000;margin-left:20px;color:#FFF"> =>知乎日报<= </a>
+<a href="/article/" style="font-size: 40px;background: #000;margin-left:20px;color:#FFF"> =>随机一文<= </a>
+{% for i in info_dict.data %}
+<li><a href="/juejingetpage/?url={{ i.url }}"+>{{ i.title }}</a></li>
+{% endfor %}
+</ol>
+</body>
+<style>
+    
+</style>
+</html>

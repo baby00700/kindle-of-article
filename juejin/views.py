@@ -17,8 +17,6 @@ headers = {
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.80 Safari/537.36"
 }
 
-
-
 def index(request):
     try:
         _create_unverified_https_context = ssl._create_unverified_context
@@ -55,6 +53,5 @@ def getPage(request):
     s = urllib.request.urlopen(req).read().decode('utf-8')
     soup = BeautifulSoup(s)
     htmlTitle = soup.title.contents
-    print(htmlTitle[0])
     html = soup.article.find_all(class_="article-content")
     return render(request, 'juejinpage.html', {'info_dict': html[0],'title':htmlTitle[0]})

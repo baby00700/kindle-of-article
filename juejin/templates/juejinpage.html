@@ -24,6 +24,7 @@ $(document).ready(function () {
     var stories = data
     stories = stories.replace(/&lt;/g,'\<')
     stories = stories.replace(/&gt;/g,'\>')
+    stories = stories.replace(/,/g,'  ')
     stories = stories.replace(/<script[^>]*?>[\s\S]*?<\/script>/g, '')
     $('#app').html(stories)
 })

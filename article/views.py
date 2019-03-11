@@ -5,6 +5,8 @@ import json
 import string
 import urllib
 import ssl
+from article.models import Article
+from django.core import serializers
 # Create your views here.
 
 headers = {
@@ -17,18 +19,39 @@ headers = {
 }
 
 def index(request):
-    #ssl._create_default_https_context = ssl._create_unverified_context
     try:
-     _create_unverified_https_context = ssl._create_unverified_context
+      _create_unverified_https_context = ssl._create_unverified_context
     except AttributeError:
-      # Legacy Python that doesn't verify HTTPS certificates by default
       pass
     else:
-      # Handle target environment that doesn't support HTTPS verification
-     ssl._create_default_https_context = _create_unverified_https_context
+      ssl._create_default_https_context = _create_unverified_https_context
     url = 'https://interface.meiriyiwen.com/article/random?dev=1'
     req = urllib.request.Request(url, headers=headers)
     s = urllib.request.urlopen(req).read().decode('utf-8')
     ss = json.loads(s)
     print(ss)
     return render(request, 'article.html',{'tips':'来到 Home','List':[1,2,3,4,5],'info_dict':ss})
+
+
+def getArticle(request):
+    try:
+      _create_unverified_https_context = ssl._create_unverified_context
+    except AttributeError:
+      pass
+    else:
+      ssl._create_default_https_context = _create_unverified_https_context
+    url = 'https://interface.meiriyiwen.com/article/random?dev=1'
+    req = urllib.request.Request(url, headers=headers)
+    s = urllib.request.urlopen(req).read().decode('utf-8')
+    Article.objects.create(con=s)
+    pageindex = int(request.GET['pageindex'])
+    pagesize = int(request.GET['pagesize'])
+    outPut = Article.objects.all()[pagesize*(pageindex - 1):pagesize*(pageindex-1)+pagesize]
+    return HttpResponse(serializers.serialize("json", outPut), content_type='application/json')
+
+
+def getArticleDetial(request):
+  id = request.GET['id']
+  outPut = Article.objects.get(id=id)
+  return HttpResponse(outPut, content_type='application/json')
+

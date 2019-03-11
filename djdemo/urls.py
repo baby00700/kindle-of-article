@@ -24,6 +24,10 @@ from juejin import views as juejin_view
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',learn_view.index),
+    path('apis/ll/', learn_view.indexll),
+    path('apis/getarticle/', article_view.getArticle, name='getArticle'),
+    # getArticleDetial
+    path('apis/getArticleDetial/', article_view.getArticleDetial, name='getArticleDetial'),
     path('calcadd/',learn_view.calcadd,name='calcadd'),
     path('calcadd1/<int:a>/<int:b>/',learn_view.calcadd1,name='calcaadd1'),
     path('home/',home_view.home,name='home'),

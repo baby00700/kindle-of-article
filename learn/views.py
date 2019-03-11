@@ -1,11 +1,16 @@
 # coding: utf-8
 from django.shortcuts import render
 from django.http import  HttpResponse
+import json
 
 # Create your views here.
 
 def index(request):
     return HttpResponse(u"Hello World")
+
+
+def indexll(request):
+    return HttpResponse(json.dumps({'site': 'Something of Bottom © Something'}), content_type='application/json')
 
 
 def calcadd(request):

@@ -27,7 +27,6 @@ def list(request):
     url = 'https://news-at.zhihu.com/api/4/news/latest'
     req = urllib.request.Request(url, headers=headers)
     s = urllib.request.urlopen(req).read().decode('utf-8')
-    ss = json.dumps(s)
     return render(request, 'list.html',{'info_dict':s})
 
 def src(request):
@@ -44,6 +43,21 @@ def src(request):
     print(id)
     req = urllib.request.Request(url, headers=headers)
     s = urllib.request.urlopen(req).read().decode('utf-8')
-    ss = json.dumps(s)
     return render(request, 'zhihusrc.html', {'info_dict': s})
     # return HttpResponse(s)
+
+def getArticle(request):
+    try:
+     _create_unverified_https_context = ssl._create_unverified_context
+    except AttributeError:
+      # Legacy Python that doesn't verify HTTPS certificates by default
+      pass
+    else:
+      # Handle target environment that doesn't support HTTPS verification
+     ssl._create_default_https_context = _create_unverified_https_context
+    url = 'https://interface.meiriyiwen.com/article/random?dev=1'
+    req = urllib.request.Request(url, headers=headers)
+    s = urllib.request.urlopen(req).read().decode('utf-8')
+    ss = json.loads(s)
+    print(ss)
+    return HttpResponse(ss)

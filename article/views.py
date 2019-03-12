@@ -7,7 +7,28 @@ import urllib
 import ssl
 from article.models import Article
 from django.core import serializers
+from django.db.models import Count, Sum
 # Create your views here.
+
+
+def typeof(variate):
+  type = None
+  if isinstance(variate, int):
+          type = "int"
+  elif isinstance(variate, str):
+          type = "str"
+  elif isinstance(variate, float):
+          type = "float"
+  elif isinstance(variate, list):
+          type = "list"
+  elif isinstance(variate, tuple):
+          type = "tuple"
+  elif isinstance(variate, dict):
+          type = "dict"
+  elif isinstance(variate, set):
+          type = "set"
+  return type
+
 
 headers = {
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
@@ -46,8 +67,12 @@ def getArticle(request):
     Article.objects.create(con=s)
     pageindex = int(request.GET['pageindex'])
     pagesize = int(request.GET['pagesize'])
-    outPut = Article.objects.all()[pagesize*(pageindex - 1):pagesize*(pageindex-1)+pagesize]
-    return HttpResponse(serializers.serialize("json", outPut), content_type='application/json')
+    outPut = Article.objects.all().order_by('-id')[pagesize*(pageindex - 1):pagesize*(pageindex-1)+pagesize]
+    nums = Article.objects.all().aggregate(Count("id"))
+    print(typeof(nums))
+    print(typeof(serializers.serialize("json", outPut)))
+    # print(serializers.serialize("json", nums))
+    return HttpResponse(json.dumps({'count': str(json.dumps(nums['id__count'])), 'data': serializers.serialize("json", outPut)}), content_type='application/json')
 
 
 def getArticleDetial(request):
